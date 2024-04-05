@@ -1,15 +1,10 @@
 ﻿using Academy.Core.Enums;
+using Academy.Core.Services.InstructorService;
 using MediatR;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Academy.Application.Commands.CreateInstructorCommand
 {
-    public class CreateInstructorCommand : IRequest<Unit>
+    public class CreateInstructorCommand : IRequest<Unit>, ICreateInstructorCommand
     {
         public CreateInstructorCommand(int id,
             string name,

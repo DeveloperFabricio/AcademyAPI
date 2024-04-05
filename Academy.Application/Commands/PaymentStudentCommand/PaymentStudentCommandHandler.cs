@@ -1,6 +1,7 @@
 ﻿using Academy.Application.DTO_s;
 using Academy.Core.Interface;
 using Academy.Core.Services;
+using Academy.Core.Services.PaymentService;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Academy.Application.Commands.PaymentStudentCommand
 {
-    public class PaymentStudentCommandHandler : IRequestHandler<PaymentStudentCommand, bool>
+    public class PaymentStudentCommandHandler : IRequestHandler<PaymentStudentCommand, bool>, IPaymentStudentCommandHandler
     {
         private readonly IStudentRepository _studentRepository;
         private readonly IPaymentRepository _paymentRepository;
@@ -35,6 +36,11 @@ namespace Academy.Application.Commands.PaymentStudentCommand
             await _paymentRepository.Finish(payment);
 
             return true;
+        }
+
+        public async Task<bool> Handle(IPaymentStudentCommand request, CancellationToken cancellationToken)
+        {
+            return await Handle((IPaymentStudentCommand)request, cancellationToken);
         }
     }
     

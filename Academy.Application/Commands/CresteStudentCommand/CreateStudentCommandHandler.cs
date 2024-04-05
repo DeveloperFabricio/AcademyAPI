@@ -1,4 +1,5 @@
 ﻿using Academy.Core.Entities;
+using Academy.Core.Services.StudentService;
 using Academy.Infrasctructure.Persistence;
 using MediatR;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Academy.Application.Commands.CresteStudentCommand
 {
-    public class CreateStudentCommandHandler : IRequestHandler<CreateStudentCommand, Unit>
+    public class CreateStudentCommandHandler : IRequestHandler<CreateStudentCommand, Unit>, ICreateStudentCommandHandler
     {
         private readonly AppDbContext _appDbContext;
         private readonly IUnitOfWork _unitOfWork;
@@ -38,6 +39,10 @@ namespace Academy.Application.Commands.CresteStudentCommand
             return Unit.Value;
         }
 
+        public async Task<Unit> Handle(ICreateStudentCommand request, CancellationToken cancellationToken)
+        {
+            return await Handle((ICreateStudentCommand)request, cancellationToken);
+        }
     }
     
     

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Academy.Core.Services.PaymentService;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Academy.Application.Commands.PaymentStudentCommand
 {
-    public class PaymentStudentCommand : IRequest<bool>
+    public class PaymentStudentCommand : IRequest<bool>, IPaymentStudentCommand
     {
         public int Id { get; set; }
         public string CreditCardNumber { get; set; }

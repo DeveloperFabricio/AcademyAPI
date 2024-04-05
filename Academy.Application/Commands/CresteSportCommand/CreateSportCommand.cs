@@ -1,14 +1,10 @@
 ﻿using Academy.Core.Enums;
+using Academy.Core.Services.SportService;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Academy.Application.Commands.CresteSportCommand
 {
-    public class CreateSportCommand : IRequest<Unit>
+    public class CreateSportCommand : IRequest<Unit>, ICreateSportCommand
     {
         public CreateSportCommand(int id,
             string name,

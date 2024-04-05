@@ -1,4 +1,5 @@
 ﻿using Academy.Core.Entities;
+using Academy.Core.Services.SportService;
 using Academy.Infrasctructure.Persistence;
 using MediatR;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Academy.Application.Commands.CresteSportCommand
 {
-    public class CreateSportCommandHandler : IRequestHandler<CreateSportCommand, Unit>
+    public class CreateSportCommandHandler : IRequestHandler<CreateSportCommand, Unit>, ICreateSportCommandHandler
     {
         private readonly AppDbContext _appDbContext;
         private readonly IUnitOfWork _unitOfWork;
@@ -21,6 +22,11 @@ namespace Academy.Application.Commands.CresteSportCommand
         }
 
         public async Task<Unit> Handle(CreateSportCommand request, CancellationToken cancellationToken)
+        {
+            return await Handle((ICreateSportCommand)request, cancellationToken);
+        }
+
+        public async Task<Unit> Handle(ICreateSportCommand request, CancellationToken cancellationToken)
         {
             var sport = new Sport(
 
@@ -34,7 +40,6 @@ namespace Academy.Application.Commands.CresteSportCommand
             await _unitOfWork.CommitAsync();
             return Unit.Value;
         }
-
     }
 }
 

@@ -1,15 +1,11 @@
 ﻿using Academy.Core.Entities;
+using Academy.Core.Services.InstructorService;
 using Academy.Infrasctructure.Persistence;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Academy.Application.Commands.CreateInstructorCommand
 {
-    public class CreateInstructorCommandHandler : IRequestHandler<CreateInstructorCommand, Unit>
+    public class CreateInstructorCommandHandler : IRequestHandler<CreateInstructorCommand, Unit>, IInstructorService
     {
         private readonly AppDbContext _appDbContext;
         private readonly IUnitOfWork _unitOfWork;
@@ -21,6 +17,11 @@ namespace Academy.Application.Commands.CreateInstructorCommand
         }
 
         public async Task<Unit> Handle(CreateInstructorCommand request, CancellationToken cancellationToken)
+        {
+            return await CreateInstructorAsync(request);
+        }
+
+        public async Task<Unit> CreateInstructorAsync(ICreateInstructorCommand request)
         {
             var instructor = new Instructor(
 

@@ -1,6 +1,7 @@
 ﻿using Academy.Application.ViewModels;
 using Academy.Core.Interface;
 using Academy.Core.Services;
+using Academy.Core.Services.LoginService;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Academy.Application.Commands.LoginInstructorCommand
 {
-    public class LoginInstructorCommandHandler : IRequestHandler<LoginInstructorCommand, LoginInstructorViewModel>
+    public class LoginInstructorCommandHandler : IRequestHandler<LoginInstructorCommand, LoginInstructorViewModel>, ILoginInstructorCommandHandler
     {
         private readonly IAuthService _authService;
         private readonly IInstructorRepository _instructorRepository;
@@ -35,6 +36,11 @@ namespace Academy.Application.Commands.LoginInstructorCommand
             var token = _authService.GenerateJwtToken(instructor.Email, instructor.Role);
 
             return new LoginInstructorViewModel(instructor.Email, token);
+        }
+
+        public async Task<ILoginInstructorViewModel> Handle(ILoginInstructorCommand request, CancellationToken cancellationToken)
+        {
+            return await Handle((ILoginInstructorCommand)request, cancellationToken);
         }
     }
     

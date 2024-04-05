@@ -1,5 +1,7 @@
 ﻿using Academy.Core.Entities;
 using Academy.Core.Enums;
+using Academy.Core.Services.SportService;
+using Academy.Core.Services.StudentService;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Academy.Application.Commands.CresteStudentCommand
 {
-    public class CreateStudentCommand : IRequest<Unit>
+    public class CreateStudentCommand : IRequest<Unit>, ICreateStudentCommand
     {
         public CreateStudentCommand(int id,
             string name,
